@@ -39,6 +39,13 @@ elseif workspace:FindFirstChild("PathFindPartsFolder") then
 	return
 end
 
+local Lighting = game:GetService("Lighting")
+
+Lighting.GlobalShadows = false
+Lighting.Ambient.B = 255
+Lighting.Ambient.R = 255
+Lighting.Ambient.G = 255
+
 local PathfindingService = game:GetService("PathfindingService")
 local VirtualInputManager = game:GetService('VirtualInputManager')
 local LocalPlayer = game.Players.LocalPlayer
