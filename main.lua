@@ -5,7 +5,7 @@ local name = "DOORS - Rooms"
 local imageUrl = "http://www.roblox.com/Thumbs/Avatar.ashx?x=100&y=100&Format=Png&Type=AvatarHeadShot&userId=" .. game.Players.LocalPlayer.UserId
 
 
-function sendDiscordMessage(message, name, picture)
+function sendDiscordMessage(message, namee, picture)
     
     local info = {
         content = message,
