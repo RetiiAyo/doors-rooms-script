@@ -1,13 +1,17 @@
+local imageUrl = "..."
+
+
+
 function sendDiscordMessage(message, picture)
-    
-    local info = {
+    print(message)
+    --[[local info = {
         content = message,
         username = "DOORS",
         avatar_url = picture
     }
     
     local encoded = https:JSONEncode(info)
-    https:PostAsync(webhook, encoded)
+    https:PostAsync(webhook, encoded)]]
 end
 
 if game.PlaceId ~= 6839171747 or game.ReplicatedStorage.GameData.Floor.Value ~= "Rooms" then
