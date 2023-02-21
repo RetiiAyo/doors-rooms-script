@@ -20,7 +20,7 @@ end
 
 if game.PlaceId ~= 6839171747 or game.ReplicatedStorage.GameData.Floor.Value ~= "Rooms" then
 	game.StarterGui:SetCore("SendNotification", { Title = "Invalid Place"; Text = "The game detected appears to not be rooms. Please execute this while in rooms!" })
-	sendDiscordMesage(":x: | Player executed the script while being in doors. Please enter Rooms.", name, imageUrl)
+	sendDiscordMessage(":x: | Player executed the script while being in doors. Please enter Rooms.", name, imageUrl)
 	
 	local Sound = Instance.new("Sound")
 	Sound.Parent = game.SoundService
@@ -79,7 +79,7 @@ Folder.Name = "PathFindPartsFolder"
 
 if LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game.RemoteListener.Modules:FindFirstChild("A90") then
     LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game.RemoteListener.Modules.A90.Name = "lol" -- Fuck you A90
-    sendDiscordMesage(":white_check_mark: | A90 was renamed.", name, imageUrl)
+    sendDiscordMessage(":white_check_mark: | A90 was renamed.", name, imageUrl)
 end
 
 function getLocker()
@@ -92,11 +92,11 @@ function getLocker()
                     if v.Door.Position.Y > -3 then -- Prevents going to the lower lockers in the room with the bridge 
                         if Closest == nil then
                             Closest = v.Door
-			    sendDiscordMesage(":x: | Locked was not found, going to the next room.", name, imageUrl)
+			    sendDiscordMessage(":x: | Locked was not found, going to the next room.", name, imageUrl)
                         else
                             if (LocalPlayer.Character.HumanoidRootPart.Position - v.Door.Position).Magnitude < (Closest.Position - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude then
                                 Closest = v.Door
-		                sendDiscordMesage(":x: | Player was closer to the door than the nearest closet.", name, imageUrl)
+		                sendDiscordMessage(":x: | Player was closer to the door than the nearest closet.", name, imageUrl)
                             end
                         end
                     end
@@ -114,9 +114,9 @@ function getPath()
     if Entity and Entity.Main.Position.Y > -4 then
         Part = getLocker()
         if Entity.Name == "A60" then
-	    sendDiscordMesage(":warning: | A90 was spawned.", name, imageUrl)
+	    sendDiscordMessage(":warning: | A90 was spawned.", name, imageUrl)
 	elseif Entity.Name == "A120" then
-	    sendDiscordMesage(":warning: | A120 was spawned.", name, imageUrl)
+	    sendDiscordMessage(":warning: | A120 was spawned.", name, imageUrl)
 	end
     else
         Part = workspace.CurrentRooms[LatestRoom.Value].Door.Door
@@ -142,6 +142,7 @@ LatestRoom:GetPropertyChangedSignal("Value"):Connect(function()
         Sound:Destroy()
         
         game.StarterGui:SetCore("SendNotification", { Title = "Retii"; Text = "Thank you for using my script!" })
+	sendDiscordMessage("Player finished Rooms. You may exit the game.", name, imageUrl)
         return
     end
 end)
@@ -163,7 +164,7 @@ game:GetService("RunService").RenderStepped:connect(function()
                     if (LocalPlayer.Character.HumanoidRootPart.Position - Path.Position).Magnitude < 2 then
                         if LocalPlayer.Character.HumanoidRootPart.Anchored == false then
                             fireproximityprompt(Path.Parent.HidePrompt)
-			    sendDiscordMesage(":white_check_mark: | Player is now hiding.", name, imageUrl)
+			    sendDiscordMessage(":white_check_mark: | Player is now hiding.", name, imageUrl)
                         end
                     end
                 end
@@ -172,13 +173,13 @@ game:GetService("RunService").RenderStepped:connect(function()
         if Entity.Main.Position.Y < -4 then
             if LocalPlayer.Character.HumanoidRootPart.Anchored == true then
                 LocalPlayer.Character:SetAttribute("Hiding", false)
-	        sendDiscordMesage(":white_check_mark: | Player is not hiding.", name, imageUrl)
+	        sendDiscordMessage(":white_check_mark: | Player is not hiding.", name, imageUrl)
             end
         end
     else
         if LocalPlayer.Character.HumanoidRootPart.Anchored == true then
             LocalPlayer.Character:SetAttribute("Hiding", false)
-	    sendDiscordMesage(":white_check_mark: | Player is not hiding.", name, imageUrl)
+	    sendDiscordMessage(":white_check_mark: | Player is not hiding.", name, imageUrl)
         end
     end
 end)
