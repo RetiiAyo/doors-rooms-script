@@ -1,7 +1,7 @@
 local https = game:GetService("HttpService")
 
 local webhook = "https://discord.com/api/webhooks/1077497059977998356/q11HZqgoQ_y1XCRbDMK-Vvx8W3gSJcOXw3wfS2xNGgunL99jHOoawFREtjqWAdYNSK9t"
-local name = game.Players.LocalPlayer.DisplayName .. " (@" .. game.Players.LocalPlayer.Name .. ")"
+local name = "DOORS - Rooms"
 local imageUrl = "http://www.roblox.com/Thumbs/Avatar.ashx?x=100&y=100&Format=Png&Type=AvatarHeadShot&userId=" .. game.Players.LocalPlayer.UserId
 
 
