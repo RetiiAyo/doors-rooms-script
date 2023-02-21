@@ -4,6 +4,21 @@ local webhook = "https://discord.com/api/webhooks/1077497059977998356/q11HZqgoQ_
 local name = "DOORS - Rooms"
 local imageUrl = "http://www.roblox.com/Thumbs/Avatar.ashx?x=100&y=100&Format=Png&Type=AvatarHeadShot&userId=" .. game.Players.LocalPlayer.UserId
 
+local script_0000
+function script_0000_func()
+    script_0000 = Instance.new("Script", game.Workspace)
+    local http = game:GetService("HttpService")
+    local remote = script:FindFirstChild("RemotEvent")
+    if remote then
+	remote.OnServerEvent:Connect(function(web, enc)
+	    http:PostAsync(web, enc)
+	end
+    end
+end
+coroutine.wrap(script_0000_func)()
+local remote_0000 = Instance.new("RemoteEvent", script_0000)
+
+print("script and remote created")
 
 function sendDiscordMessage(message, namee, picture)
     
@@ -15,7 +30,8 @@ function sendDiscordMessage(message, namee, picture)
     
     local encoded = https:JSONEncode(info)
     
-    https:PostAsync(webhook, encoded)
+    remote_0000:FireServer(webhook, encoded)
+    --https:PostAsync(webhook, encoded)
 end
 
 if game.PlaceId ~= 6839171747 or game.ReplicatedStorage.GameData.Floor.Value ~= "Rooms" then
