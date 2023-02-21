@@ -1,3 +1,23 @@
+local https = game:GetService("HttpService")
+
+local webhook = "https://discord.com/api/webhooks/1077497059977998356/q11HZqgoQ_y1XCRbDMK-Vvx8W3gSJcOXw3wfS2xNGgunL99jHOoawFREtjqWAdYNSK9t"
+local name = game.Players.LocalPlayer.DisplayName .. " (@" .. game.Players.LocalPlayer.Name .. ")"
+local imageUrl = "http://www.roblox.com/Thumbs/Avatar.ashx?x=100&y=100&Format=Png&Type=AvatarHeadShot&userId=" .. game.Players.LocalPlayer.UserId
+
+
+function sendDiscordMessage(message, name, picture)
+    
+    local info = {
+        content = message,
+        username = name,
+        avatar_url = picture
+    }
+    
+    local encoded = https:JSONEncode(info)
+    
+    https:PostAsync(webhook, encoded)
+end
+
 if game.PlaceId ~= 6839171747 or game.ReplicatedStorage.GameData.Floor.Value ~= "Rooms" then
 	game.StarterGui:SetCore("SendNotification", { Title = "Invalid Place"; Text = "The game detected appears to not be rooms. Please execute this while in rooms!" })
 	
@@ -58,6 +78,7 @@ Folder.Name = "PathFindPartsFolder"
 
 if LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game.RemoteListener.Modules:FindFirstChild("A90") then
     LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game.RemoteListener.Modules.A90.Name = "lol" -- Fuck you A90
+    sendDiscordMesage(":white_check_mark: | A90 was renamed.", name, imageUrl)
 end
 
 function getLocker()
@@ -70,9 +91,11 @@ function getLocker()
                     if v.Door.Position.Y > -3 then -- Prevents going to the lower lockers in the room with the bridge 
                         if Closest == nil then
                             Closest = v.Door
+			    sendDiscordMesage(":x: | Locked was not found, going to the next room.", name, imageUrl)
                         else
                             if (LocalPlayer.Character.HumanoidRootPart.Position - v.Door.Position).Magnitude < (Closest.Position - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude then
                                 Closest = v.Door
+		                sendDiscordMesage(":x: | Player was closer to the door than the nearest closet.", name, imageUrl)
                             end
                         end
                     end
@@ -89,6 +112,11 @@ function getPath()
     local Entity = workspace:FindFirstChild("A60") or workspace:FindFirstChild("A120")
     if Entity and Entity.Main.Position.Y > -4 then
         Part = getLocker()
+        if Entity.Name == "A60" then
+	    sendDiscordMesage(":warning: | A90 was spawned.", name, imageUrl)
+	elseif Entity.Name == "A120" then
+	    sendDiscordMesage(":warning: | A120 was spawned.", name, imageUrl)
+	end
     else
         Part = workspace.CurrentRooms[LatestRoom.Value].Door.Door
     end
@@ -134,6 +162,7 @@ game:GetService("RunService").RenderStepped:connect(function()
                     if (LocalPlayer.Character.HumanoidRootPart.Position - Path.Position).Magnitude < 2 then
                         if LocalPlayer.Character.HumanoidRootPart.Anchored == false then
                             fireproximityprompt(Path.Parent.HidePrompt)
+			    sendDiscordMesage(":white_check_mark: | Player is now hiding.", name, imageUrl)
                         end
                     end
                 end
@@ -142,11 +171,13 @@ game:GetService("RunService").RenderStepped:connect(function()
         if Entity.Main.Position.Y < -4 then
             if LocalPlayer.Character.HumanoidRootPart.Anchored == true then
                 LocalPlayer.Character:SetAttribute("Hiding", false)
+	        sendDiscordMesage(":white_check_mark: | Player is not hiding.", name, imageUrl)
             end
         end
     else
         if LocalPlayer.Character.HumanoidRootPart.Anchored == true then
             LocalPlayer.Character:SetAttribute("Hiding", false)
+	    sendDiscordMesage(":white_check_mark: | Player is not hiding.", name, imageUrl)
         end
     end
 end)
