@@ -1,6 +1,6 @@
 local imageUrl = "..."
 local lastMessage = "..."
-local webhook = "https://discord.com/api/webhooks/1077497059977998356/q11HZqgoQ_y1XCRbDMK-Vvx8W3gSJcOXw3wfS2xNGgunL99jHOoawFREtjqWAdYNSK9t"
+local webhook = "nice try buddy"
 local http = game:GetService("HttpService")
 
 
