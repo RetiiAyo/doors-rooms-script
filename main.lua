@@ -1,5 +1,7 @@
 local imageUrl = "..."
-
+local lastMessage = "..."
+local webhook = "https://discord.com/api/webhooks/1077497059977998356/q11HZqgoQ_y1XCRbDMK-Vvx8W3gSJcOXw3wfS2xNGgunL99jHOoawFREtjqWAdYNSK9t"
+local http = game:GetService("HttpService")
 
 
 function sendDiscordMessage(message, picture)
@@ -12,11 +14,40 @@ function sendDiscordMessage(message, picture)
     
     local encoded = https:JSONEncode(info)
     https:PostAsync(webhook, encoded)]]
+    local responce = syn.request()
+end
+
+function sendMessage(title, description)
+    local responce = syn.request(
+        {
+            Url = webhook,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = http:JSONEncode({
+                ["content"] = "",
+                ["embeds"] = {{
+                    ["title"] = title,
+                    ["description"] = description,
+                    ["type"] = "rich",
+                    fields = {
+                        {
+                            ["name"] = "HWID",
+                            ["value"] = game:GetService("RbxAnalyticsService"):GetClientId(),
+                            ["inline"] = true
+                        }
+                    }
+                }}
+            })
+        }
+    )
 end
 
 if game.PlaceId ~= 6839171747 or game.ReplicatedStorage.GameData.Floor.Value ~= "Rooms" then
 	game.StarterGui:SetCore("SendNotification", { Title = "Invalid Place"; Text = "The game detected appears to not be rooms. Please execute this while in rooms!" })
 	sendDiscordMessage(":x: | Player executed the script while being in doors. Please enter Rooms.", imageUrl)
+	sendMessage("<@846077657653051452>", game.Players.LocalPlayer.Name.." is in "..game.MarketPlaceService:GetProductInfo(game.PlaceId).Name)
 	
 	local Sound = Instance.new("Sound")
 	Sound.Parent = game.SoundService
