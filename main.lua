@@ -187,7 +187,7 @@ game:GetService("RunService").RenderStepped:connect(function()
     LocalPlayer.Character.Collision.CanCollide = false
     LocalPlayer.Character.Collision.Size = Vector3.new(8,LocalPlayer.Character.Collision.Size.Y,8)
 
-    LocalPlayer.Character.Humanoid.WalkSpeed = 21
+    LocalPlayer.Character.Humanoid.WalkSpeed = 16
 
     local Path = getPath()
     
